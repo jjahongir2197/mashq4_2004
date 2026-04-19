@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+            line-height: 1.6;
+        }
+        .success { 
+            color: green; 
+            background: #e8f5e9; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid green;
+        }
+        .error { 
+            color: red; 
+            background: #ffebee; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid red;
+        }
+        input, textarea {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Fikr-mulohazangizni qoldiring</h2>
+
+    {% if res is not none %}
+        {% if res|length == 1 and res[0] == "Ma'lumotlar noto'g'ri kiritildi" %}
+            <p class="error">❌ {{ res[0] }}</p>
+        {% else %}
+            <div class="success">
+                <h3>✅ Fikr-mulohaza muvaffaqiyatli yuborildi!</h3>
+                <p><strong>Ism:</strong> {{ res[0] }}</p>
+                <p><strong>Baho:</strong> {{ res[1] }} / 5</p>
+                <p><strong>Sharh:</strong> {{ res[2] | nl2br }}</p>
+            </div>
+        {% endif %}
+        <hr>
+    {% endif %}
+
+    <form method="POST">
+        <input type="text" name="ism" placeholder="Ismingiz" required><br><br>
+        <input type="text" name="baho" placeholder="Baho (1-5)" required><br><br>
+        <textarea name="sharh" placeholder="Sharhingiz" rows="4" required></textarea><br><br>
+        <button type="submit">Yuborish</button>
+    </form>
+
+    <br>
+    <p>
+        <a href="/">Ro'yxatdan o'tish</a> | 
+        <a href="/kontakt">Kontakt</a> | 
+        <a href="/kitob">Kitob qo'shish</a>
+    </p>
+</body>
+</html>
